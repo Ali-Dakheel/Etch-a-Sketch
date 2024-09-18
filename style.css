@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.header{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+#container{
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: grey;
+    height: 650px;
+    width: 60%;
+    margin: 40px auto auto auto;
+}
+.sketch{
+    border: 2px solid grey;
+    min-height: 10px;
+    /* width: calc(100% / 16);  */
+}
+.sketch:hover{
+background-color: antiquewhite;
+}
