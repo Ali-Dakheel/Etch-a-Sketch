@@ -1,18 +1,13 @@
-let container=null;
-let divs=null;
 
-for(let i=0; i<256;i++){
-container = document.querySelector('#container');
-divs = document.createElement('div');
-divs.classList.add('sketch');
-divs.setAttribute('style','width: calc(100% / 16);');
-container.appendChild(divs);    
-handleMouse();
-}
-
-
-function handleMouse(){
-    const gridItems = document.querySelectorAll('.sketch');
+function intialLoad(){
+    let container = document.querySelector('#container');
+    for(let i=0; i<256;i++){
+        divs = document.createElement('div');
+        divs.classList.add('sketch');
+        divs.setAttribute('style','width: calc(100% / 16);');
+        container.appendChild(divs);    
+    }
+    let gridItems = document.querySelectorAll('.sketch');
     gridItems.forEach(div => {
         div.addEventListener('mouseenter', () => {
             if(!div.style.backgroundColor){
@@ -20,31 +15,46 @@ function handleMouse(){
             }
         });
     });
+    
+    document.querySelector('.reset').addEventListener('click',()=>{
+        gridItems.forEach(div=>{
+            div.style.backgroundColor = '';
+        });
+    });
+
+    document.querySelector('.square').addEventListener('click', () => {
+        gridItems.forEach(div=>{
+            div.remove();
+        });   
+        let input = prompt('Enter how man squares per side');
+        if(input>100 ||input<0){
+            alert('MI BOMBOCLAT');
+        }
+        else{
+            for(let i=0;i<input*input;i++){
+                divs = document.createElement('div');
+                divs.classList.add('sketch');
+                divs.setAttribute('style',`width: calc(100% / ${input});`);
+                container.appendChild(divs);    
+            }
+            let newItems = document.querySelectorAll('.sketch');
+            newItems.forEach(div => {
+                div.addEventListener('mouseenter', () => {
+                    if(!div.style.backgroundColor){
+                    div.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+                    }
+                });
+            });
+            document.querySelector('.reset').addEventListener('click',()=>{
+                newItems.forEach(div=>{
+                    div.style.backgroundColor = '';
+                });
+            });
+        
+        }
+    });
+    
+        
 }
 
-const header = document.querySelector('.header');
-const button = document.createElement('button');
-button.textContent = 'Squares per side';
-header.appendChild(button);
-button.addEventListener('click',()=>{
-    let input = prompt('number of squares per side');
-    gridItems.forEach(div=>{
-        div.remove()
-    });
-    for(let i=0; i<input*input;i++){
-        divs = null;
-        divs = document.createElement('div');
-        divs.classList.add('sketch');
-        divs.setAttribute('style',`width:calc(100%/${input});`);
-        container.appendChild(divs);    
-        handleMouse();
-        }
-});
-
-const resetBtn = document.querySelector('.reset');
-
-resetBtn.addEventListener('click',()=>{
-    gridItems.forEach(div=>{
-        div.style.backgroundColor='';
-    });
-});
+intialLoad();
